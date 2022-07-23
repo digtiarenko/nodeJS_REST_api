@@ -1,6 +1,18 @@
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
+require('dotenv').config();
+
+// const DB_HOST =
+//   'mongodb+srv://digtiarenko:AaridKW7z8iYneR@cluster0.1mkzg.mongodb.net/db-contacts?retryWrites=true&w=majority';
+
+// mongoose
+//   .connect(DB_HOST)
+//   .then(() => console.log('Database connection successful'))
+//   .catch(error => {
+//     console.log(error.message);
+//     process.exit(1);
+//   });
 
 const contactsRouter = require('./routes/api/contacts');
 const app = express();
