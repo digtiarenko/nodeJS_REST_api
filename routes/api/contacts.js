@@ -1,7 +1,4 @@
 const express = require('express');
-// const { createError } = require('../../helpers');
-// const Joi = require('joi');
-
 const ctrl = require('../../controllers/contacts');
 
 const router = express.Router();
