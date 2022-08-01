@@ -1,6 +1,9 @@
 const { User, joiSchemas } = require('../../models/user');
 const { createError } = require('../../helpers');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const { SECRET_KEY } = process.env;
 
 const login = async (req, res, next) => {
   try {
@@ -15,14 +18,13 @@ const login = async (req, res, next) => {
     if (!user) {
       throw createError(401, `User with email:${email} does mot exists`);
     }
-    console.dir(user);
     const comparePassword = await bcrypt.compare(password, user.password);
-    console.log('comparePassword', comparePassword);
     if (!comparePassword) {
       throw createError(401, 'Password is wrong');
     }
     // creating token
-    const token = 'asADASDAS.ASDASDASDA.dfsdfsdfsdf';
+    const payload = { id: user._id };
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '3h' });
     res.json({ token });
   } catch (error) {
     next(error);
