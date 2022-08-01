@@ -24,8 +24,14 @@ const login = async (req, res, next) => {
     }
     // creating token
     const payload = { id: user._id };
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '3h' });
-    res.json({ token });
+    const token = jwt.sign(payload, SECRET_KEY);
+    await User.findByIdAndUpdate(user._id, { token });
+    res.status(200).json({
+      token,
+      user: {
+        email: user.email,
+      },
+    });
   } catch (error) {
     next(error);
   }
