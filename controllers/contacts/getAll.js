@@ -3,9 +3,20 @@ const Contact = require('../../models/contact.js');
 const getAll = async (req, res, next) => {
   try {
     const { id: owner } = req.user;
+    const {
+      page = 1,
+      limit = 10,
+      favorite = { $in: [true, false] },
+    } = req.query;
+
+    const skip = (page - 1) * limit;
     const result = await Contact.find(
-      { owner },
+      { owner, favorite: favorite },
       '-createdAt -updatedAt',
+      {
+        skip,
+        limit: Number(limit),
+      },
     ).populate('owner', 'name email');
     res.json(result).status(200);
   } catch (error) {
