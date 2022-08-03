@@ -24,7 +24,7 @@ const put = async (req, res, next) => {
       throw createError(400, 'Missing fields');
     }
     const { contactId } = req.params;
-    console.log('contactId', contactId);
+
     const result = await Contact.findByIdAndUpdate(contactId, req.body, {
       new: true,
     });

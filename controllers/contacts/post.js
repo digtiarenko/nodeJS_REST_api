@@ -18,7 +18,8 @@ const post = async (req, res, next) => {
     if (error) {
       throw createError(400, error.message);
     }
-    const result = await Contact.create(req.body);
+    const { id: owner } = req.user;
+    const result = await Contact.create({ ...req.body, owner });
     res.status(201).json(result);
   } catch (error) {
     next(error);
