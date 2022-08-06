@@ -1,4 +1,4 @@
-const Contact = require('../../models/contact.js');
+const services = require('../../services/contacts');
 const { createError } = require('../../helpers');
 const Joi = require('joi');
 
@@ -13,9 +13,11 @@ const updateFavorite = async (req, res, next) => {
       throw createError(400, error.message);
     }
     const { contactId } = req.params;
-    const result = await Contact.findByIdAndUpdate(contactId, req.body, {
-      new: true,
-    });
+    const { favorite } = req.body;
+    console.log('contactId :', contactId);
+    console.log('favorite :', favorite);
+
+    const result = await services.updateFavorite(contactId, favorite);
     if (!result) {
       throw createError(404);
     }

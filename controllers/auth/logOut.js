@@ -1,9 +1,9 @@
-const { User } = require('../../models/user');
+const services = require('../../services/auth');
 
 const logOut = async (req, res) => {
   const { _id } = req.user;
-  await User.findByIdAndUpdate(_id, { token: '' });
-  res.status(204).send();
+  const result = await services.signOut(_id);
+  res.status(204).json(result);
 };
 
 module.exports = logOut;

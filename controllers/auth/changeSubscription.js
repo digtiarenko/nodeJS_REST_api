@@ -1,4 +1,6 @@
-const { User, joiSchemas } = require('../../models/user');
+const { joiSchemas } = require('../../models/user');
+const services = require('../../services/auth');
+
 const { createError } = require('../../helpers');
 
 const changeSubscription = async (req, res, next) => {
@@ -10,11 +12,7 @@ const changeSubscription = async (req, res, next) => {
     const { subscription } = req.body;
     const { _id } = req.user;
 
-    const result = await User.findByIdAndUpdate(
-      _id,
-      { subscription },
-      { new: true },
-    );
+    const result = await services.changeSubscription(_id, subscription);
     if (!result) {
       throw createError(404);
     }
