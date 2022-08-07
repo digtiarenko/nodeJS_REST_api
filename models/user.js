@@ -26,6 +26,9 @@ const userSchema = Schema(
     subscription: {
       type: String,
     },
+    avatarURL: {
+      type: String,
+    },
   },
   { versionKey: false, timestamps: true },
 );
