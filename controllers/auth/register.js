@@ -1,6 +1,7 @@
-const { User, joiSchemas } = require('../../models/user');
+const { joiSchemas } = require('../../models/user');
 const { createError } = require('../../helpers');
-const bcrypt = require('bcrypt');
+const services = require('../../services/auth');
+const gravatar = require('gravatar');
 
 const register = async (req, res, next) => {
   try {
@@ -10,18 +11,14 @@ const register = async (req, res, next) => {
       throw createError(400, error.message);
     }
     // Unique user validation
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (user) {
-      throw createError(409, `${email} is already exists`);
-    }
-    // creating new user
+    const { name, email, password } = req.body;
+    const avatarURL = gravatar.url(email);
+    const user = await services.signUp(name, email, password, avatarURL);
 
-    const hashPassword = await bcrypt.hash(password, 10);
-    const result = await User.create({ ...req.body, password: hashPassword });
     res.status(201).json({
-      name: result.name,
-      email: result.email,
+      name: user.name,
+      email: user.email,
+      avatarURL: user.avatarURL,
     });
   } catch (error) {
     next(error);

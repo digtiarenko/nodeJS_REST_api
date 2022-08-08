@@ -1,4 +1,4 @@
-const Contact = require('../../models/contact.js');
+const services = require('../../services/contacts');
 const { createError } = require('../../helpers');
 const Joi = require('joi');
 
@@ -18,8 +18,13 @@ const post = async (req, res, next) => {
     if (error) {
       throw createError(400, error.message);
     }
+    const newContact = req.body;
     const { id: owner } = req.user;
-    const result = await Contact.create({ ...req.body, owner });
+
+    const result = await services.createNewContact({
+      newContact,
+      owner,
+    });
     res.status(201).json(result);
   } catch (error) {
     next(error);
