@@ -14,9 +14,6 @@ const updateFavorite = async (req, res, next) => {
     }
     const { contactId } = req.params;
     const { favorite } = req.body;
-    console.log('contactId :', contactId);
-    console.log('favorite :', favorite);
-
     const result = await services.updateFavorite(contactId, favorite);
     if (!result) {
       throw createError(404);

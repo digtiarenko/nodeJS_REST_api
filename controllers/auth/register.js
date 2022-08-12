@@ -3,7 +3,6 @@ const { createError, sendEmail } = require('../../helpers');
 const services = require('../../services/auth');
 const gravatar = require('gravatar');
 const { nanoid } = require('nanoid');
-const mail = require('@sendgrid/mail');
 
 const register = async (req, res, next) => {
   try {
@@ -24,11 +23,14 @@ const register = async (req, res, next) => {
       verificationToken,
     );
     const mailTo = {
-      to: mail,
+      to: email,
       subject: 'Verify your account',
-      html: `<a target="_blank" href="http://localhost:3000/users/verify/${verificationToken}"> </a>`,
+      text: 'Follow this link to complete verifying',
+      html: `<strong>'Follow this link to complete verifying'</strong> <br/> <a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}">Click here</a>`,
     };
-    await sendEmail(mailTo);
+
+    await sendEmail(mailTo).then(console.log(`Email sent to ${email} `));
+
     res.status(201).json({
       name: user.name,
       email: user.email,
