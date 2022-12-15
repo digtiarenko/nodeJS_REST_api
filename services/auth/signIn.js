@@ -10,6 +10,9 @@ const signIn = async (email, password) => {
   if (!user) {
     throw createError(401, `User with email:${email} does not exists`);
   }
+  if (!user.verified) {
+    throw createError(401, `Please verify your email`);
+  }
   // Validating password
   const comparePassword = await bcrypt.compare(password, user.password);
   if (!comparePassword) {
