@@ -1,5 +1,5 @@
 const { joiSchemas } = require('../../models/user');
-const { createError, sendEmail } = require('../../helpers');
+const { createError, sendEmail, mailTo } = require('../../helpers');
 const services = require('../../services/auth');
 const gravatar = require('gravatar');
 const { nanoid } = require('nanoid');
@@ -22,14 +22,14 @@ const register = async (req, res, next) => {
       avatarURL,
       verificationToken,
     );
-    const mailTo = {
-      to: email,
-      subject: 'Verify your account',
-      text: 'Follow this link to complete verifying',
-      html: `<strong>'Follow this link to complete verifying'</strong> <br/> <a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}">Click here</a>`,
-    };
+    // const mailTo = {
+    //   to: email,
+    //   subject: 'Verify your account',
+    //   text: 'Follow this link to complete verifying',
+    //   html: `<strong>'Follow this link to complete verifying'</strong> <br/> <a target="_blank" href="${DB_BASE_URL}/users/verify/${verificationToken}">Click here</a>`,
+    // };
 
-    await sendEmail(mailTo).then(console.log(`Email sent to ${email} `));
+    await sendEmail(mailTo(email)).then(console.log(`Email sent to ${email} `));
 
     res.status(201).json({
       name: user.name,

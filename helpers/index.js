@@ -1,4 +1,4 @@
 const createError = require('./createError');
-const sendEmail = require('./sendEmail');
+const { sendEmail, mailTo } = require('./sendEmail');
 
-module.exports = { createError, sendEmail };
+module.exports = { createError, sendEmail, mailTo };

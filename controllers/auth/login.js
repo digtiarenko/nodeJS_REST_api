@@ -12,6 +12,7 @@ const login = async (req, res, next) => {
 
     const { email, password } = req.body;
     const loginedUser = await services.signIn(email, password);
+
     res
       .status(200)
       .json({ token: loginedUser.token, email: loginedUser.email });
