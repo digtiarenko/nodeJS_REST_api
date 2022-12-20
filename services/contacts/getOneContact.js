@@ -19,8 +19,3 @@ const getOneContact = async (contactId, _id) => {
   return data;
 };
 module.exports = getOneContact;
-
-// db.bios.find({
-//   birth: { $gt: new Date('1920-01-01') },
-//   death: { $exists: false },
-// });
