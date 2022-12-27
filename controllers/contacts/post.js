@@ -4,9 +4,11 @@ const Joi = require('joi');
 
 const contactAddSchema = Joi.object({
   name: Joi.string().max(50).required(),
-  email: Joi.string().required(),
+  email: Joi.string(),
   phone: Joi.string()
-    .pattern(/^[0-9+()-_ ]*$/)
+    .pattern(
+      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+    )
     .max(20)
     .required(),
   favorite: Joi.boolean(),
