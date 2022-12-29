@@ -14,7 +14,7 @@ app.use(function (req, res, next) {
   // res.header("Access-Control-Allow-Origin", "*");
   const allowedOrigins = [
     'http://localhost:3004',
-    'http://gamebrag.onrender.com',
+    'https://marvelous-bunny-daf51a.netlify.app/',
   ];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
