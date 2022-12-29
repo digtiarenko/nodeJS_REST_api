@@ -12,7 +12,7 @@ app.use(logger(formatsLogger));
 app.options('*', cors());
 app.use(
   cors({
-    origin: 'https://marvelous-bunny-daf51a.netlify.app/',
+    origin: 'https://marvelous-bunny-daf51a.netlify.app',
     credentials: true,
   }),
 );
