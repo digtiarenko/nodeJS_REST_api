@@ -1,5 +1,5 @@
 const { User } = require('../../models/user');
-const { createError, sendEmail } = require('../../helpers');
+const { createError, sendEmail, mailTo } = require('../../helpers');
 
 const secondVerifyEmail = async email => {
   const user = await User.findOne({ email });
@@ -10,13 +10,13 @@ const secondVerifyEmail = async email => {
   if (user.verified) {
     throw createError(400, 'Verification has already been passed');
   }
-  const mailTo = {
-    to: email,
-    subject: 'Verify your account',
-    text: 'Follow this link to complete verifying',
-    html: ` <strong>Follow this link to complete verifying</strong> <br/> <a target="_blank" href="http://localhost:3000/api/users/verify/${user.verificationToken}">Click here</a>`,
-  };
-  await sendEmail(mailTo).then(console.log(`Email sent to ${email} `));
+  // const mailTo = {
+  //   to: email,
+  //   subject: 'Verify your account',
+  //   text: 'Follow this link to complete verifying',
+  //   html: ` <strong>Follow this link to complete verifying</strong> <br/> <a target="_blank" href="${DB_BASE_URL}/api/users/verify/${user.verificationToken}">Click here</a>`,
+  // };
+  await sendEmail(mailTo(email)).then(console.log(`Email sent to ${email} `));
   return user;
 };
 

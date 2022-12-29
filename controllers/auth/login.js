@@ -12,9 +12,13 @@ const login = async (req, res, next) => {
 
     const { email, password } = req.body;
     const loginedUser = await services.signIn(email, password);
+
     res
       .status(200)
-      .json({ token: loginedUser.token, email: loginedUser.email });
+      .json({
+        token: loginedUser.token,
+        user: { email: loginedUser.email, name: loginedUser.name },
+      });
   } catch (error) {
     next(error);
   }
