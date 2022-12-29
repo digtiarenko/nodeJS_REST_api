@@ -13,7 +13,7 @@ app.options('*', cors());
 app.use(
   cors({
     origin: 'https://marvelous-bunny-daf51a.netlify.app',
-    credentials: true,
+    credentials: false,
   }),
 );
 app.use(express.json());
