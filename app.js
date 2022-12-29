@@ -9,6 +9,7 @@ const app = express();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(logger(formatsLogger));
+app.options('*', cors());
 app.use(
   cors({
     origin: 'https://marvelous-bunny-daf51a.netlify.app/',
