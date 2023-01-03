@@ -29,14 +29,14 @@ const userSchema = Schema(
     avatarURL: {
       type: String,
     },
-    verificationToken: {
-      type: String,
-      required: true,
-    },
-    verified: {
-      type: Boolean,
-      default: false,
-    },
+    // verificationToken: {
+    //   type: String,
+    //   required: true,
+    // },
+    // verified: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
   { versionKey: false, timestamps: true },
 );
