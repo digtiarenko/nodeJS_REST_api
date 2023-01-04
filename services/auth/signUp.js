@@ -17,7 +17,6 @@ const signUp = async (name, email, password, avatarURL) => {
     password: hashPassword,
     avatarURL,
   });
-  console.log('newUser', newUser);
   // creating token
   const payload = { id: newUser._id };
   const token = jwt.sign(payload, SECRET_KEY);
